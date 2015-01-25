@@ -6,3 +6,6 @@ totp-ssh-command: .depman.cache main.go
 .depman.cache: deps.json
 	go get github.com/vube/depman
 	./bin/depman
+
+run: totp-ssh-command
+	./totp-ssh-command
