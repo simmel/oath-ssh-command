@@ -9,3 +9,9 @@ totp-ssh-command: .depman.cache main.go
 
 run: totp-ssh-command
 	./totp-ssh-command
+
+clean:
+	rm -rf .depman.cache \
+	bin \
+	pkg \
+	src
