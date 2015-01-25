@@ -1,0 +1,2 @@
+GOPATH=$(shell pwd)
+
