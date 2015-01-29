@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"encoding/base32"
 	"fmt"
 	"os"
 	"os/user"
@@ -32,6 +33,9 @@ func main() {
 	if len(scanner.Text()) != 16 {
 		fmt.Printf("ERROR: Couldn't read exactly 16 bytes from first line of %q. Got this: %q.", ga_token_file, scanner.Text())
 	}
+	token_in_bytes, err := base32.StdEncoding.DecodeString(scanner.Text())
+	check_err(err)
+	token := string(token_in_bytes)
 
 	fmt.Print("Verification code: ")
 	scanner = bufio.NewScanner(os.Stdin)
