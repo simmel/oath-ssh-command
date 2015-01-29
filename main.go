@@ -33,5 +33,11 @@ func main() {
 		fmt.Printf("ERROR: Couldn't read exactly 16 bytes from first line of %q. Got this: %q.", ga_token_file, scanner.Text())
 	}
 
-	println(scanner.Text())
+	fmt.Print("Verification code: ")
+	scanner = bufio.NewScanner(os.Stdin)
+	scanner.Scan()
+	check_err(scanner.Err())
+	otp_input := scanner.Text()
+
+	println(otp_input)
 }
