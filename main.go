@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 	"os/user"
@@ -25,4 +26,12 @@ func main() {
 	check_err(err)
 	defer file.Close()
 
+	scanner := bufio.NewScanner(file)
+	scanner.Scan()
+	check_err(scanner.Err())
+	if len(scanner.Text()) != 16 {
+		fmt.Printf("ERROR: Couldn't read exactly 16 bytes from first line of %q. Got this: %q.", ga_token_file, scanner.Text())
+	}
+
+	println(scanner.Text())
 }
