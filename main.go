@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"encoding/base32"
 	"fmt"
+	"github.com/hgfischer/go-otp"
 	"os"
 	"os/user"
 	"path"
@@ -43,5 +44,13 @@ func main() {
 	check_err(scanner.Err())
 	otp_input := scanner.Text()
 
-	println(otp_input)
+	totp := &otp.TOTP{Secret: token}
+	verified := totp.Verify(otp_input)
+
+	os.Exit(func(b bool) int {
+		if b {
+			return 0
+		}
+		return 1
+	}(verified))
 }
