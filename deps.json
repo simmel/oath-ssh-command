@@ -1,7 +1,7 @@
 {
     "totp": {
-        "repo": "github.com/balasanjay/totp",
-        "version": "3ac5dcd4b388f5c2e4ac334420d00b6c9a0cb09e",
+        "repo": "github.com/hgfischer/go-otp",
+        "version": "d416f5f98991275c1338b32467f04a24dc8c0cb8",
         "type": "git"
     }
 }
