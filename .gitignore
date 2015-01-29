@@ -1,5 +1,5 @@
 bin/
 pkg/
 src/
-totp-ssh-command
+oath-ssh-command
 .depman.cache
