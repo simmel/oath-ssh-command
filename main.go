@@ -1,14 +1,14 @@
 package main
 
 import (
-  "os/user"
-  "fmt"
+	"fmt"
+	"os/user"
 )
 
 func main() {
-  usr, err := user.Current()
-  if err != nil {
-    fmt.Printf("Error:%s", err)
-  }
-  fmt.Println(usr.HomeDir)
+	usr, err := user.Current()
+	if err != nil {
+		fmt.Printf("Error:%s", err)
+	}
+	fmt.Println(usr.HomeDir)
 }
