@@ -19,5 +19,10 @@ func main() {
 	if err != nil {
 		fmt.Printf("Error:%s", err)
 	}
-	fmt.Println(path.Join(usr.HomeDir, ".google_authenticator"))
+	ga_token_file := path.Join(usr.HomeDir, ".google_authenticator")
+
+	file, err := os.Open(ga_token_file)
+	check_err(err)
+	defer file.Close()
+
 }
