@@ -5,6 +5,11 @@ So it works:
 * offline (when you're cut of from the net but not from the machine you're ssh:ing into)
 * without sending any authentication request to an external service.
 
+h4. Installation
+# Build the code:
+<pre><code>$ make</code></pre>
+# Put the somewhere you want it to be, <code>/usr/local/bin/</code> is nice.
+
 h4. TODO
 * Add tests
 * Fix FIXME's in the code
