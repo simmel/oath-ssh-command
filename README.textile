@@ -9,6 +9,12 @@ h4. Installation
 # Build the code:
 <pre><code>$ make</code></pre>
 # Put the somewhere you want it to be, <code>/usr/local/bin/</code> is nice.
+# In your <code>~/.ssh/authorized_keys</code> add:
+<pre><code>command="/usr/local/bin/oath-ssh-command" ssh-rsa AAAAZOMGLOL[…]== awesome key with OTP</code></pre>
+# ssh into your machine with that key:
+<pre><code>$ ssh awesome-machine
+Verification code: 1337
+$</code></pre>
 
 h4. TODO
 * Add tests
