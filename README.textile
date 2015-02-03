@@ -1,0 +1,11 @@
+h1. oath-ssh-command
+Think of this as "authy-ssh":https://github.com/authy/authy-ssh but for
+OATH [TH]OTP.
+So it works:
+* offline (when you're cut of from the net but not from the machine you're
+ssh:ing into)
+* without sending any authentication request to an external service.
+
+h1. TODO
+* Support HOTP
+* Support other configuration files, like "pam_oath":http://www.nongnu.org/oath-toolkit/
