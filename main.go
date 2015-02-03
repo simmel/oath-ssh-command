@@ -6,8 +6,10 @@ import (
 	"fmt"
 	"github.com/hgfischer/go-otp"
 	"os"
+	"os/exec"
 	"os/user"
 	"path"
+	"syscall"
 )
 
 func check_err(err error) {
@@ -47,10 +49,26 @@ func main() {
 	totp := &otp.TOTP{Secret: token}
 	verified := totp.Verify(otp_input)
 
-	os.Exit(func(b bool) int {
-		if b {
-			return 0
+	if verified {
+		env := os.Environ()
+
+		if os.Getenv("SSH_ORIGINAL_COMMAND") != "" {
+			// FIXME Maybe check if $SHELL is set to something?
+			shell, err := exec.LookPath(os.Getenv("SHELL"))
+			check_err(err)
+
+			// FIXME Maybe check if $USER is set to something?
+			args := []string{shell, "-c", os.Getenv("SSH_ORIGINAL_COMMAND")}
+			syscall.Exec(shell, args, env)
+		} else {
+			shell, err := exec.LookPath("login")
+			check_err(err)
+
+			// FIXME Maybe check if $USER is set to something?
+			args := []string{"login", "-f", os.Getenv("USER")}
+			syscall.Exec(shell, args, env)
 		}
-		return 1
-	}(verified))
+	} else {
+		os.Exit(1)
+	}
 }
