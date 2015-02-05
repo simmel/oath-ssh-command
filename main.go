@@ -19,14 +19,8 @@ func check_err(err error) {
 	}
 }
 
-func main() {
-	usr, err := user.Current()
-	if err != nil {
-		fmt.Printf("Error:%s", err)
-	}
-	ga_token_file := path.Join(usr.HomeDir, ".google_authenticator")
-
-	file, err := os.Open(ga_token_file)
+func parse_config(filename string) (token string) {
+	file, err := os.Open(filename)
 	check_err(err)
 	defer file.Close()
 
@@ -34,14 +28,24 @@ func main() {
 	scanner.Scan()
 	check_err(scanner.Err())
 	if len(scanner.Text()) != 16 {
-		fmt.Printf("ERROR: Couldn't read exactly 16 bytes from first line of %q. Got this: %q.", ga_token_file, scanner.Text())
+		fmt.Printf("ERROR: Couldn't read exactly 16 bytes from first line of %q. Got this: %q.", filename, scanner.Text())
 	}
 	token_in_bytes, err := base32.StdEncoding.DecodeString(scanner.Text())
 	check_err(err)
-	token := string(token_in_bytes)
+	return string(token_in_bytes)
+}
+
+func main() {
+	usr, err := user.Current()
+	if err != nil {
+		fmt.Printf("Error:%s", err)
+	}
+	ga_token_file := path.Join(usr.HomeDir, ".google_authenticator")
+
+	token := parse_config(ga_token_file)
 
 	fmt.Print("Verification code: ")
-	scanner = bufio.NewScanner(os.Stdin)
+	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
 	check_err(scanner.Err())
 	otp_input := scanner.Text()
