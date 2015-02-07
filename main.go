@@ -49,6 +49,26 @@ func read_otp_input() (otp string) {
 	return scanner.Text()
 }
 
+func run_appropriately() {
+	env := os.Environ()
+
+	if os.Getenv("SSH_ORIGINAL_COMMAND") != "" {
+		// FIXME Maybe check if $SHELL is set to something?
+		shell, err := exec.LookPath(os.Getenv("SHELL"))
+		check_err(err)
+
+		args := []string{shell, "-c", os.Getenv("SSH_ORIGINAL_COMMAND")}
+		syscall.Exec(shell, args, env)
+	} else {
+		shell, err := exec.LookPath("login")
+		check_err(err)
+
+		// FIXME Maybe check if $USER is set to something?
+		args := []string{"login", "-f", os.Getenv("USER")}
+		syscall.Exec(shell, args, env)
+	}
+}
+
 func main() {
 	ga_token_file := find_config()
 
@@ -60,23 +80,7 @@ func main() {
 	verified := totp.Verify(otp_input)
 
 	if verified {
-		env := os.Environ()
-
-		if os.Getenv("SSH_ORIGINAL_COMMAND") != "" {
-			// FIXME Maybe check if $SHELL is set to something?
-			shell, err := exec.LookPath(os.Getenv("SHELL"))
-			check_err(err)
-
-			args := []string{shell, "-c", os.Getenv("SSH_ORIGINAL_COMMAND")}
-			syscall.Exec(shell, args, env)
-		} else {
-			shell, err := exec.LookPath("login")
-			check_err(err)
-
-			// FIXME Maybe check if $USER is set to something?
-			args := []string{"login", "-f", os.Getenv("USER")}
-			syscall.Exec(shell, args, env)
-		}
+		run_appropriately()
 	} else {
 		os.Exit(1)
 	}
