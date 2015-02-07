@@ -41,16 +41,20 @@ func parse_config(filename string) (token string) {
 	return string(token_in_bytes)
 }
 
+func read_otp_input() (otp string) {
+	fmt.Print("Verification code: ")
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Scan()
+	check_err(scanner.Err())
+	return scanner.Text()
+}
+
 func main() {
 	ga_token_file := find_config()
 
 	token := parse_config(ga_token_file)
 
-	fmt.Print("Verification code: ")
-	scanner := bufio.NewScanner(os.Stdin)
-	scanner.Scan()
-	check_err(scanner.Err())
-	otp_input := scanner.Text()
+	otp_input := read_otp_input()
 
 	totp := &otp.TOTP{Secret: token}
 	verified := totp.Verify(otp_input)
