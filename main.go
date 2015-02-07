@@ -19,6 +19,12 @@ func check_err(err error) {
 	}
 }
 
+func find_config() (filename string) {
+	usr, err := user.Current()
+	check_err(err)
+	return path.Join(usr.HomeDir, ".google_authenticator")
+}
+
 func parse_config(filename string) (token string) {
 	file, err := os.Open(filename)
 	check_err(err)
@@ -36,11 +42,7 @@ func parse_config(filename string) (token string) {
 }
 
 func main() {
-	usr, err := user.Current()
-	if err != nil {
-		fmt.Printf("Error:%s", err)
-	}
-	ga_token_file := path.Join(usr.HomeDir, ".google_authenticator")
+	ga_token_file := find_config()
 
 	token := parse_config(ga_token_file)
 
