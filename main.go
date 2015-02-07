@@ -61,7 +61,6 @@ func main() {
 			shell, err := exec.LookPath(os.Getenv("SHELL"))
 			check_err(err)
 
-			// FIXME Maybe check if $USER is set to something?
 			args := []string{shell, "-c", os.Getenv("SSH_ORIGINAL_COMMAND")}
 			syscall.Exec(shell, args, env)
 		} else {
