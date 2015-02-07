@@ -15,3 +15,6 @@ clean:
 	bin \
 	pkg \
 	src
+
+test: oath-ssh-command
+	go test
