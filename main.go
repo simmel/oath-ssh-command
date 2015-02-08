@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"encoding/base32"
+	"errors"
 	"fmt"
 	"github.com/hgfischer/go-otp"
 	"os"
@@ -34,7 +35,7 @@ func parse_config(filename string) (token string) {
 	scanner.Scan()
 	check_err(scanner.Err())
 	if len(scanner.Text()) != 16 {
-		fmt.Printf("ERROR: Couldn't read exactly 16 bytes from first line of %q. Got this: %q.", filename, scanner.Text())
+		check_err(errors.New(fmt.Sprintf("Couldn't read exactly 16 bytes from first line of %q. Got this: %q.", filename, scanner.Text())))
 	}
 	token_in_bytes, err := base32.StdEncoding.DecodeString(scanner.Text())
 	check_err(err)
