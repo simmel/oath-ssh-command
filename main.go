@@ -15,7 +15,7 @@ import (
 func check_err(err error) {
 	if err != nil {
 		fmt.Printf("ERROR: %s\n", err)
-		os.Exit(1)
+		fail_out()
 	}
 }
 
@@ -69,6 +69,10 @@ func run_appropriately() {
 	}
 }
 
+var fail_out = func() {
+	os.Exit(1)
+}
+
 func main() {
 	ga_token_file := find_config()
 
@@ -82,6 +86,6 @@ func main() {
 	if verified {
 		run_appropriately()
 	} else {
-		os.Exit(1)
+		fail_out()
 	}
 }
