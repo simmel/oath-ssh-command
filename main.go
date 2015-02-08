@@ -19,7 +19,7 @@ func check_err(err error) {
 	}
 }
 
-func find_config() (filename string) {
+var find_config = func() (filename string) {
 	usr, err := user.Current()
 	check_err(err)
 	return path.Join(usr.HomeDir, ".google_authenticator")
