@@ -12,7 +12,7 @@ import (
 	"syscall"
 )
 
-func check_err(err error) {
+var check_err = func(err error) {
 	if err != nil {
 		fmt.Printf("ERROR: %s\n", err)
 		fail_out()
@@ -25,7 +25,7 @@ var find_config = func() (filename string) {
 	return path.Join(usr.HomeDir, ".google_authenticator")
 }
 
-func parse_config(filename string) (token string) {
+var parse_config = func(filename string) (token string) {
 	file, err := os.Open(filename)
 	check_err(err)
 	defer file.Close()
@@ -41,7 +41,7 @@ func parse_config(filename string) (token string) {
 	return string(token_in_bytes)
 }
 
-func read_otp_input() (otp string) {
+var read_otp_input = func() (otp string) {
 	fmt.Print("Verification code: ")
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
@@ -49,7 +49,7 @@ func read_otp_input() (otp string) {
 	return scanner.Text()
 }
 
-func run_appropriately() {
+var run_appropriately = func() {
 	env := os.Environ()
 
 	if os.Getenv("SSH_ORIGINAL_COMMAND") != "" {
