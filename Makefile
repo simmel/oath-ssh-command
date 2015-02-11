@@ -17,4 +17,4 @@ clean:
 	src
 
 test: oath-ssh-command
-	go test
+	go test -v
