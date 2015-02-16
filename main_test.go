@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"reflect"
 	"testing"
 )
@@ -56,11 +57,7 @@ func Patch(dest, value interface{}) Restorer {
 // My tests
 
 func TestConfig(t *testing.T) {
-	defer Patch(&find_config, func() (filename string) {
-		return "lol"
-	}).Restore()
-
-	expected := "lol"
+	expected := os.Getenv("HOME") + "/.google_authenticator"
 	config := find_config()
 	if config != expected {
 		t.Errorf("%q == %q", expected, config)
