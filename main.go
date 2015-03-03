@@ -25,11 +25,15 @@ var find_config = func() (filename string) {
 	return path.Join(usr.HomeDir, ".google_authenticator")
 }
 
-var parse_config = func(filename string) (token string) {
+var get_config_file = func(filename string) (file *os.File) {
 	file, err := os.Open(filename)
 	check_err(err)
-	defer file.Close()
+	return file
+}
 
+var parse_config = func(filename string) (token string) {
+	file := get_config_file(filename)
+	defer file.Close()
 	scanner := bufio.NewScanner(file)
 	scanner.Scan()
 	check_err(scanner.Err())
