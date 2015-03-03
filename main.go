@@ -42,6 +42,10 @@ var parse_config = func(filename string) (token string) {
 }
 
 var read_otp_input = func() (otp string) {
+	if os.Getenv("OTP_TOKEN") != "" {
+		return os.Getenv("OTP_TOKEN")
+	}
+
 	fmt.Print("Verification code: ")
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
