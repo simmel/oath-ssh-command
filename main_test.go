@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/seletskiy/go-mock-file"
 	"os"
 	"reflect"
 	"testing"
@@ -61,5 +62,21 @@ func TestConfig(t *testing.T) {
 	config := find_config()
 	if config != expected {
 		t.Errorf("%q == %q", expected, config)
+	}
+}
+
+func TestConfigParsing(t *testing.T) {
+	defer Patch(&get_config_file, func(filename string) (file *mockfile.file) {
+		mockfile := mockfile.New(os.Getenv("HOME") + "/.google_authenticator")
+		mockfile.Write([]byte("luul"))
+		defer mockfile.Close()
+		return mockfile
+	}).Restore()
+
+	expected := "1337"
+	ga_token_file := find_config()
+	found := parse_config(ga_token_file)
+	if found != expected {
+		t.Errorf("%q != %q", found, expected)
 	}
 }

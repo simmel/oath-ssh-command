@@ -3,5 +3,10 @@
         "repo": "github.com/hgfischer/go-otp",
         "version": "d416f5f98991275c1338b32467f04a24dc8c0cb8",
         "type": "git"
+    },
+    "mockfile": {
+        "repo": "github.com/seletskiy/go-mock-file",
+        "version": "60fa05c84f0174ff13b5ddaf57445fc09d7c8912",
+        "type": "git"
     }
 }
