@@ -5,7 +5,8 @@ So it works:
 * offline (when you're cut of from the net but not from the machine you're ssh:ing into)
 * without sending any authentication request to an external service.
 
-It also supports using the `OTP_TOKEN` environment variable for your token so it can be used with e.g. mosh:
+It also supports using the <code>OTP_TOKEN</code> environment variable for your
+token so it can be used with e.g. mosh:
 <pre><code>$ export OTP_TOKEN=1337
 $ mosh example.com
 $</code></pre>
