@@ -1,0 +1,14 @@
+{
+    "ImportPath": "github.com/simmel/oath-ssh-command",
+    "GoVersion": "go1.4.1",
+    "Deps": [
+        {
+            "ImportPath": "github.com/hgfischer/go-otp",
+            "Rev": "d416f5f98991275c1338b32467f04a24dc8c0cb8"
+        },
+        {
+            "ImportPath": "github.com/seletskiy/go-mock-file",
+            "Rev": "60fa05c84f0174ff13b5ddaf57445fc09d7c8912"
+        }
+    ]
+}

@@ -1,20 +1,25 @@
-GOPATH=$(shell pwd)
+ifndef GOPATH
+export GOPATH=$(HOME)/code/go
+endif
+export PATH := $(PATH):$(GOPATH)/bin
 
-oath-ssh-command: .depman.cache main.go
+oath-ssh-command: .deps main.go
 	go build
 
-.depman.cache: deps.json
-	go get github.com/vube/depman
-	./bin/depman
+$(GOPATH):
+	@mkdir -p $(GOPATH)
+
+.deps: $(GOPATH) Godeps/Godeps.json
+	go get github.com/tools/godep
+	PATH=$(PATH) godep restore
+	touch .deps
 
 run: oath-ssh-command
 	./oath-ssh-command
 
 clean:
-	rm -rf .depman.cache \
-	bin \
-	pkg \
-	src
+	rm -rf $(GOPATH)/{bin,pkg,src} \
+	oath-ssh-command
 
 test: oath-ssh-command
 	go test -v

@@ -1,5 +1,2 @@
-bin/
-pkg/
-src/
 oath-ssh-command
-.depman.cache
+.deps
