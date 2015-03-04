@@ -5,12 +5,23 @@ import (
 	"encoding/base32"
 	"fmt"
 	"github.com/hgfischer/go-otp"
+	"io"
 	"os"
 	"os/exec"
 	"os/user"
 	"path"
 	"syscall"
 )
+
+type file interface {
+	io.Closer
+	io.Writer
+	io.Reader
+	io.ReaderAt
+	io.Seeker
+	Stat() (os.FileInfo, error)
+	Truncate(size int64) error
+}
 
 var check_err = func(err error) {
 	if err != nil {
@@ -25,10 +36,10 @@ var find_config = func() (filename string) {
 	return path.Join(usr.HomeDir, ".google_authenticator")
 }
 
-var get_config_file = func(filename string) (file *os.File) {
-	file, err := os.Open(filename)
+var get_config_file = func(filename string) (config_file file) {
+	config_file, err := os.Open(filename)
 	check_err(err)
-	return file
+	return config_file
 }
 
 var parse_config = func(filename string) (token string) {
