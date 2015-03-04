@@ -66,14 +66,14 @@ func TestConfig(t *testing.T) {
 }
 
 func TestConfigParsing(t *testing.T) {
-	defer Patch(&get_config_file, func(filename string) (file *mockfile.file) {
-		mockfile := mockfile.New(os.Getenv("HOME") + "/.google_authenticator")
-		mockfile.Write([]byte("luul"))
-		defer mockfile.Close()
-		return mockfile
+	defer Patch(&get_config_file, func(filename string) (config_file file) {
+		config_file = mockfile.New(os.Getenv("HOME") + "/.google_authenticator")
+		config_file.Write([]byte("KJGFSRCFIFCE4MCC"))
+		defer config_file.Close()
+		return config_file
 	}).Restore()
 
-	expected := "1337"
+	expected := "RLYDEADN0B"
 	ga_token_file := find_config()
 	found := parse_config(ga_token_file)
 	if found != expected {
