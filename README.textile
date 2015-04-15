@@ -22,14 +22,13 @@ h4. Installation
 Verification code: 1337
 $</code></pre>
 
+h4. WONTFIX
+* Since "pam_oath":http://www.nongnu.org/oath-toolkit/ uses one file per server which is owned by root we can't support that (because it would force us to setuid or otherwise run as root).
+
 h4. TODO
 * Add tests for:
 ** <code>OTP_TOKEN</code>
 ** <code>run_appropriately</code>
 ** multiple keys and OTP-tokens in an hash
-** All OATH implementations we support:
-*** "Google Authenticator PAM module":https://code.google.com/p/google-authenticator/
-*** "pam_oath":http://www.nongnu.org/oath-toolkit/
 * Fix FIXME's in the code
 * Support HOTP
-* Support other configuration files, like "pam_oath":http://www.nongnu.org/oath-toolkit/. Currently it only works with the configuration file from "Google Authenticator PAM module":https://code.google.com/p/google-authenticator/.
