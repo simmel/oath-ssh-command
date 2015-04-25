@@ -77,15 +77,19 @@ var run_appropriately = func() {
 		check_err(err)
 
 		args := []string{shell, "-c", os.Getenv("SSH_ORIGINAL_COMMAND")}
-		syscall.Exec(shell, args, env)
+		exec_appropriately(shell, args, env)
 	} else {
 		shell, err := exec.LookPath("login")
 		check_err(err)
 
 		// FIXME Maybe check if $USER is set to something?
 		args := []string{"login", "-f", os.Getenv("USER")}
-		syscall.Exec(shell, args, env)
+		exec_appropriately(shell, args, env)
 	}
+}
+
+var exec_appropriately = func(shell string, args []string, env []string) {
+	syscall.Exec(shell, args, env)
 }
 
 var fail_out = func() {

@@ -80,3 +80,33 @@ func TestConfigParsing(t *testing.T) {
 		t.Errorf("%q != %q", found, expected)
 	}
 }
+
+func TestExec(t *testing.T) {
+	expected := []string{"login", "-f", os.Getenv("USER")}
+	defer Patch(&exec_appropriately, func(shell string, args []string, env []string) {
+		if len(args) != len(expected) {
+			t.Errorf("args length %d differs from expected length %d", len(args), len(expected))
+		}
+		for i := range args {
+			if args[i] != expected[i] {
+				t.Errorf("args[%d] %q != expected[%d] %q", i, args[i], i, expected[i])
+			}
+		}
+	}).Restore()
+
+	run_appropriately()
+}
+
+func TestExecEnv(t *testing.T) {
+	expected := "/bin/true"
+	defer Patch(&exec_appropriately, func(shell string, args []string, env []string) {
+		found := args[len(args)-1]
+		if found != expected {
+			t.Errorf("%q != %q", found, expected)
+		}
+	}).Restore()
+
+	check_err(os.Setenv("SSH_ORIGINAL_COMMAND", expected))
+	run_appropriately()
+	check_err(os.Unsetenv("SSH_ORIGINAL_COMMAND"))
+}
