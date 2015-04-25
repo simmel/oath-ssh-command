@@ -110,3 +110,13 @@ func TestExecEnv(t *testing.T) {
 	run_appropriately()
 	check_err(os.Unsetenv("SSH_ORIGINAL_COMMAND"))
 }
+
+func TestOtpTokenEnv(t *testing.T) {
+	expected := "313373"
+	check_err(os.Setenv("OTP_TOKEN", expected))
+	found := read_otp_input()
+	if found != expected {
+		t.Errorf("%q != %q", found, expected)
+	}
+	check_err(os.Unsetenv("OTP_TOKEN"))
+}

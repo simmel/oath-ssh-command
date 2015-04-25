@@ -27,7 +27,6 @@ h4. WONTFIX
 
 h4. TODO
 * Add tests for:
-** <code>OTP_TOKEN</code>
 ** multiple keys and OTP-tokens in an hash
 * Fix FIXME's in the code
 * Support HOTP
