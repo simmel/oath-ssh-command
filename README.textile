@@ -5,8 +5,8 @@ So it works:
 * offline (when you're cut of from the net but not from the machine you're ssh:ing into)
 * without sending any authentication request to an external service.
 
-Currently the only OATH PAM module supported is [Google Authenticator PAM module](https://github.com/google/google-authenticator/)
-but others are planned (when they arrive). See also [#wontfix]
+Currently the only OATH PAM module supported is "Google Authenticator PAM module":https://github.com/google/google-authenticator/
+but others are planned (when they arrive). See also "WONTFIX":#wontfix
 
 It also supports using the <code>OTP_TOKEN</code> environment variable for your
 token so it can be used with e.g. mosh:
