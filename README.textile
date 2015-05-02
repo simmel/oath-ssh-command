@@ -32,4 +32,9 @@ h4. TODO
 * Add tests for:
 ** multiple keys and OTP-tokens in an hash
 * Fix FIXME's in the code
+* Use IsBase32Secret instead of base32.StdEncoding.DecodeString
 * Support HOTP
+* Support these features from Google Authenticator PAM module:
+** Support for emergency scratch codes
+** Protection against replay attacks
+** HOTP
