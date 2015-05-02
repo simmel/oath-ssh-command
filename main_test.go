@@ -73,7 +73,7 @@ func TestConfigParsing(t *testing.T) {
 		return config_file
 	}).Restore()
 
-	expected := "RLYDEADN0B"
+	expected := "KJGFSRCFIFCE4MCC"
 	ga_token_file := find_config()
 	found := parse_config(ga_token_file)
 	if found != expected {

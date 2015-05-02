@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"encoding/base32"
 	"fmt"
 	"github.com/hgfischer/go-otp"
 	"io"
@@ -51,8 +50,7 @@ var parse_config = func(filename string) (token string) {
 	if len(scanner.Text()) != 16 {
 		check_err(fmt.Errorf("Couldn't read exactly 16 bytes from first line of %q. Got this: %q.", filename, scanner.Text()))
 	}
-	token_in_bytes, err := base32.StdEncoding.DecodeString(scanner.Text())
-	check_err(err)
+	token_in_bytes := scanner.Text()
 	return string(token_in_bytes)
 }
 
@@ -103,7 +101,7 @@ func main() {
 
 	otp_input := read_otp_input()
 
-	totp := &otp.TOTP{Secret: token}
+	totp := &otp.TOTP{Secret: token, IsBase32Secret: true}
 	verified := totp.Verify(otp_input)
 
 	if verified {

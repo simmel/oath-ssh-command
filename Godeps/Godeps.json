@@ -4,7 +4,7 @@
     "Deps": [
         {
             "ImportPath": "github.com/hgfischer/go-otp",
-            "Rev": "d416f5f98991275c1338b32467f04a24dc8c0cb8"
+            "Rev": "38f86955cc6459714c4a5945fc6dfbacdb30b624"
         },
         {
             "ImportPath": "github.com/seletskiy/go-mock-file",
