@@ -33,7 +33,7 @@ h4. TODO
 ** multiple keys and OTP-tokens in an hash
 * Fix FIXME's in the code
 * Support HOTP
-* Support these features from Google Authenticator PAM module:
+* Support these features from Google Authenticator PAM module, "see":https://github.com/google/google-authenticator/blob/master/libpam/FILEFORMAT:
 ** Support for emergency scratch codes
 ** Protection against replay attacks
 ** HOTP
