@@ -69,19 +69,15 @@ var read_otp_input = func() (otp string) {
 var run_appropriately = func() {
 	env := os.Environ()
 
-	if os.Getenv("SSH_ORIGINAL_COMMAND") != "" {
-		// FIXME Maybe check if $SHELL is set to something?
-		shell, err := exec.LookPath(os.Getenv("SHELL"))
-		check_err(err)
+	// FIXME Maybe check if $SHELL is set to something?
+	shell, err := exec.LookPath(os.Getenv("SHELL"))
+	check_err(err)
 
+	if os.Getenv("SSH_ORIGINAL_COMMAND") != "" {
 		args := []string{shell, "-c", os.Getenv("SSH_ORIGINAL_COMMAND")}
 		exec_appropriately(shell, args, env)
 	} else {
-		shell, err := exec.LookPath("login")
-		check_err(err)
-
-		// FIXME Maybe check if $USER is set to something?
-		args := []string{"login", "-f", os.Getenv("USER")}
+		args := []string{shell, "-i"}
 		exec_appropriately(shell, args, env)
 	}
 }
