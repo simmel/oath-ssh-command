@@ -6,9 +6,6 @@ export PATH := $(PATH):$(GOPATH)/bin
 oath-ssh-command: .deps main.go
 	go build
 
-$(GOPATH):
-	@mkdir -p $(GOPATH)
-
 .deps: Godeps/Godeps.json
 	env
 	go get github.com/tools/godep
