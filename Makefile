@@ -1,16 +1,15 @@
-ifndef GOPATH
+ifeq ($(shell test -z "$(GOPATH)" -o "$(CI)" = "true" && echo "true"), true)
 export GOPATH=$(HOME)/code/go
 endif
 export PATH := $(PATH):$(GOPATH)/bin
 
-env:
-	env
-
 oath-ssh-command: .deps main.go
 	go build
 
-.deps: Godeps/Godeps.json
-	env
+$(GOPATH):
+	@mkdir -p $(GOPATH)
+
+.deps: $(GOPATH) Godeps/Godeps.json
 	go get github.com/tools/godep
 	PATH=$(PATH) godep restore
 	touch .deps
