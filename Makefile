@@ -3,6 +3,9 @@ export GOPATH=$(HOME)/code/go
 endif
 export PATH := $(PATH):$(GOPATH)/bin
 
+env:
+	env
+
 oath-ssh-command: .deps main.go
 	go build
 
