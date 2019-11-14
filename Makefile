@@ -9,7 +9,8 @@ oath-ssh-command: .deps main.go
 $(GOPATH):
 	@mkdir -p $(GOPATH)
 
-.deps: $(GOPATH) Godeps/Godeps.json
+.deps: Godeps/Godeps.json
+	env
 	go get github.com/tools/godep
 	PATH=$(PATH) godep restore
 	touch .deps
