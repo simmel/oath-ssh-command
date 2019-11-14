@@ -82,7 +82,7 @@ func TestConfigParsing(t *testing.T) {
 }
 
 func TestExec(t *testing.T) {
-	expected := []string{"login", "-f", os.Getenv("USER")}
+	expected := []string{os.Getenv("SHELL"), "-i"}
 	defer Patch(&exec_appropriately, func(shell string, args []string, env []string) {
 		if len(args) != len(expected) {
 			t.Errorf("args length %d differs from expected length %d", len(args), len(expected))
