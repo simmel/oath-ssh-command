@@ -1,8 +1,9 @@
 language: go
-
+cache:
+  directories:
+    - /home/travis/code/go/pkg/mod
 go:
 - 1.6
 - "1.10"
 - master
-
 script: make test
